@@ -15,7 +15,7 @@ client.on('ready', async () => {
   console.log(`${client.user.username} is ready!`);
 })
 
-client.login("ODkzNTA3OTE2Mzg3MTk2OTM4.G60wx8.oWubAJPkgovMnYVe3GchDZxRzl_PK2ftmDDqIE");
+client.login("KEY");
 let onSozvon = false
 
 
