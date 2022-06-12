@@ -8,7 +8,6 @@ const {
     createAudioResource,
     NoSubscriberBehavior,
 } = require('@discordjs/voice');
-const play = require('play-dl');
 
 
 client.on('ready', async () => {
@@ -20,14 +19,12 @@ let onSozvon = false
 
 
 client.on("message",(m)=>{
-    console.log(m)
-    if(!m.content.toLowerCase().includes("негр")) return
-    let channel = m.member.voice.channel
-    playMuzon(channel)
-    
+    if(m.content.toLowerCase().includes("негр")) return playMuzon(m.member.voice.channel,'./music/nigga.mp3')
+    if(m.content.toLowerCase().includes("машин")) return playMuzon(m.member.voice.channel,'./music/mashina.mp3')
+    if(m.content.toLowerCase().includes("еб")) return playMuzon(m.member.voice.channel,'./music/ebi.mp3')
 })
 
-async function playMuzon(channel){
+async function playMuzon(channel,path){
     if(!onSozvon){
     if(!channel) return
     onSozvon = true
@@ -36,16 +33,12 @@ async function playMuzon(channel){
         guildId: channel.guild.id,
         adapterCreator: channel.guild.voiceAdapterCreator,
     });
-
-    let stream = await play.stream('https://www.youtube.com/watch?v=f3HdUiD3mZE');
-    let resource = createAudioResource(stream.stream, {
-        inputType: stream.type,
-    });
     let player = createAudioPlayer({
         behaviors: {
             noSubscriber: NoSubscriberBehavior.Play,
         },
     });
+    const resource = createAudioResource(path);
     player.play(resource);
     connection.subscribe(player);
     player.on("stateChange",(a)=>{
